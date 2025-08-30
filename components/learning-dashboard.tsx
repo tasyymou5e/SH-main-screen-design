@@ -5,7 +5,23 @@ import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
 import { Button } from "@/components/ui/button"
 import { Progress } from "@/components/ui/progress"
 import { Badge } from "@/components/ui/badge"
-import { BookOpen, Palette, Shapes, Heart, Users, Brain, Target, Star, Play, Clock, Trophy, Smile } from "lucide-react"
+import {
+  BookOpen,
+  Palette,
+  Shapes,
+  Heart,
+  Users,
+  Brain,
+  Target,
+  Star,
+  Play,
+  Clock,
+  Trophy,
+  Smile,
+  Film,
+  Music,
+  Video,
+} from "lucide-react"
 
 const learningLevels = [
   {
@@ -51,6 +67,9 @@ const sidebarItems = [
   { icon: Smile, label: "Emotions" },
   { icon: Brain, label: "Physical Movement" },
   { icon: Target, label: "Relaxation/Therapy" },
+  { icon: Film, label: "Movies" },
+  { icon: Music, label: "Music" },
+  { icon: Video, label: "Video" },
 ]
 
 const quickAccessItems = [
@@ -65,23 +84,21 @@ export function LearningDashboard() {
   const [activeLevel, setActiveLevel] = useState("basic")
 
   return (
-    <div className="min-h-screen bg-background">
+    <div className="h-screen bg-background overflow-hidden">
       {/* Header */}
-      <header className="border-b bg-card p-4">
+      <header className="border-b bg-card p-4 flex-shrink-0">
         <div className="flex items-center justify-between">
           <h1 className="text-2xl font-bold text-primary">Learning Dashboard</h1>
-          <div className="flex items-center gap-2">
-            <Badge variant="secondary" className="text-sm">
-              Student Progress
-            </Badge>
-          </div>
+          <Badge variant="secondary" className="text-sm">
+            Student Progress
+          </Badge>
         </div>
       </header>
 
-      <div className="flex">
+      <div className="flex h-[calc(100vh-80px)]">
         {/* Left Sidebar for Skill Levels */}
-        <aside className="w-80 border-r bg-sidebar flex flex-col h-screen">
-          <div className="p-4 border-b">
+        <aside className="w-80 border-r bg-sidebar flex flex-col h-full">
+          <div className="p-4 border-b flex-shrink-0">
             <h2 className="text-lg font-semibold text-sidebar-foreground">Skill Levels</h2>
           </div>
 
@@ -114,7 +131,7 @@ export function LearningDashboard() {
         </aside>
 
         {/* Main Content */}
-        <main className="flex-1 p-6 pb-24">
+        <main className="flex-1 p-6 pb-24 overflow-y-auto">
           <div className="max-w-4xl">
             {/* Main Screen Title */}
             <div className="mb-6">
@@ -126,7 +143,7 @@ export function LearningDashboard() {
             <Card className="mb-6">
               <CardHeader>
                 <CardTitle className="flex items-center gap-2">
-                  <Star className="h-5 w-5 text-primary" />
+                  <Star className="h-5 w-5 text-primary mx-auto mb-2" />
                   Current Focus: {learningLevels.find((l) => l.id === activeLevel)?.title}
                 </CardTitle>
               </CardHeader>
@@ -168,22 +185,22 @@ export function LearningDashboard() {
           </div>
         </main>
 
-        {/* Right Sidebar */}
-        <aside className="w-80 border-l bg-sidebar flex flex-col h-screen">
-          <div className="p-4 border-b">
+        {/* Activities Right Sidebar */}
+        <aside className="w-80 border-l bg-sidebar flex flex-col h-full">
+          <div className="p-4 border-b flex-shrink-0">
             <h2 className="text-lg font-semibold text-sidebar-foreground">Activities</h2>
           </div>
 
-          <div className="flex-1 overflow-y-auto p-4">
-            <div className="space-y-2">
+          <div className="flex-1 overflow-y-auto p-4 scrollbar-thin scrollbar-thumb-gray-300 scrollbar-track-gray-100">
+            <div className="space-y-3">
               {sidebarItems.map((item, index) => (
                 <Button
                   key={index}
                   variant={item.active ? "default" : "ghost"}
-                  className="w-full justify-start gap-3 h-12"
+                  className="w-full justify-start h-auto p-3"
                 >
-                  <item.icon className="h-5 w-5" />
-                  {item.label}
+                  <item.icon className="h-5 w-5 mr-3" />
+                  <span className="text-sm">{item.label}</span>
                 </Button>
               ))}
             </div>
@@ -192,12 +209,12 @@ export function LearningDashboard() {
       </div>
 
       {/* Quick Talk Bar */}
-      <div className="fixed bottom-0 left-0 right-0 bg-card border-t p-4 z-50">
+      <div className="fixed bottom-0 left-0 right-0 bg-card border-t p-2 z-50">
         <div className="max-w-6xl mx-auto">
-          <h3 className="text-sm font-medium mb-3">Quick Talk Bar</h3>
+          <h3 className="text-sm font-medium mb-2">Quick Talk Bar</h3>
           <div className="flex gap-2 justify-center">
             {quickAccessItems.map((item, index) => (
-              <Button key={index} variant="outline" size="sm" className="h-16 flex-col gap-1 bg-transparent min-w-20">
+              <Button key={index} variant="outline" size="sm" className="h-12 flex-col gap-1 bg-transparent min-w-20">
                 <item.icon className="h-4 w-4" />
                 <span className="text-xs">{item.label}</span>
               </Button>
